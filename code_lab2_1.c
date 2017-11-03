@@ -106,7 +106,7 @@ void TaskB(void *pdata)
         putrsXLCD("Task 2 rocks!");
         PORTBbits.RB1 = 1;
         OSTimeDly(200);
-        
+      
     }
     
     OSTaskDel(OS_PRIO_SELF);
@@ -147,14 +147,17 @@ void main (void)
     WriteCmdXLCD( BLINK_ON ); 
     while( BusyXLCD() ); 
     WriteCmdXLCD( SHIFT_DISP_LEFT );
+    
+    
     while( BusyXLCD());                                                         //waits for the LCD to not be busy
     SetDDRamAddr (0x40);                                                        //sets the pointer at the top row 
     putrsXLCD ("LCD Init");                                                     //writes the sting of characters to the LCD
-    //OSTimeDlyHMSM(0,2,0,0);                                                   //wait 3 seconds
+    OSTimeDlyHMSM(0,0,5,0);                                                   //wait 3 seconds
     //Delay1KTCYx(200);
     SetDDRamAddr (0x10);                                                        //sets the pointer at the top row 
     while(BusyXLCD());
     putrsXLCD ("Completed");                                                    //writes the sting of characters to the LCD
+    OSTimeDlyHMSM(0,0,5,0); 
     
     while(BusyXLCD());
     WriteCmdXLCD(0x01);                                                         //clears display
